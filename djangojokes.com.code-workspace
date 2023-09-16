@@ -1,13 +1,18 @@
 {
-	"folders": [
-	  {
-		"path": "/Users/AgentM3/Desktop/Playground/Webucator/Django/projects/djangojokes.com"
-	  }
-	],
-	"settings": {
-	  "[python]": {
-		"editor.defaultFormatter": "ms-python.black-formatter"
-	  },
-	}
+  "folders": [
+    {
+      "path": "/Users/AgentM3/Desktop/Playground/Webucator/Django/projects/djangojokes.com"
+    },
+    {
+      "path": "../../solutions"
+    },
+    {
+      "path": "../../starter-code"
+    }
+  ],
+  "settings": {
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    }
   }
-  
+}
