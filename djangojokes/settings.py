@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "common.apps.CommonConfig",
     "jokes.apps.JokesConfig",
     "pages.apps.PagesConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -108,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Authentication Settings
+AUTH_USER_MODEL = "users.CustomUser"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
