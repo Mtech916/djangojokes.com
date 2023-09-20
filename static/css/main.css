@@ -2,6 +2,17 @@ body {
     padding-bottom: 50px;
   }
     
+  /* FORM STYLES */
+  label {
+    font-variant: small-caps;
+  }
+
+  .form-check {
+    display: inline-block;
+    font-weight: normal;
+    margin:0 1rem;
+  }
+  
   footer {
     border-top: 1px solid darkgreen;
   }
