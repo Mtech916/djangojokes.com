@@ -43,7 +43,7 @@ class JobApplicationForm(forms.Form):
         widget=forms.NumberInput(attrs={"min": "10.00", "max": "100.00", "step": ".25"})
     )
     cover_letter = forms.CharField(
-        widget=forms.Textarea(attrs={"cols": "75", "rows": "5"})
+        widget=forms.Textarea(attrs={"cols": "70", "rows": "5"})
     )
     confirmation = forms.BooleanField(
         label="I cerify that the information I have provided is true."
