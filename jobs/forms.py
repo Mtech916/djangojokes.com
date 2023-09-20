@@ -21,8 +21,8 @@ class JobApplicationForm(forms.Form):
     website = forms.URLField(required=False)
     employment_type = forms.ChoiceField(choices=EMPLOYMENT_TYPES)
     start_date = forms.DateField(help_text="The earliest date you can start working.")
-    available_days = forms.MultipleChoiceField(
-        choices=DAYS, help_text="Select all days that you can work."
+    available_days = forms.TypedMultipleChoiceField(
+        choices=DAYS, coerce=int, help_text="Select all days that you can work."
     )
     desired_hourly_wage = forms.DecimalField()
     cover_letter = forms.CharField()
