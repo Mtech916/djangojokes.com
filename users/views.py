@@ -8,7 +8,7 @@ from .forms import CustomUserChangeForm
 
 
 class CustomPasswordChangeView(PasswordChangeView):
-    success_url = reverse_lazy("my_account")
+    success_url = reverse_lazy("my-account")
 
 
 class MyAccountPageView(UpdateView):
