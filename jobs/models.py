@@ -5,6 +5,7 @@ from django.core.validators import URLValidator
 from django.db import models
 
 import filetype
+from private_storage.fields import PrivateFileField
 
 
 def validate_future_date(value):
@@ -49,8 +50,8 @@ class Applicant(models.Model):
     available_days = models.CharField(max_length=20)
     desired_hourly_wage = models.DecimalField(max_digits=5, decimal_places=2)
     cover_letter = models.TextField()
-    resume = models.FileField(
-        upload_to="private/resumes",
+    resume = PrivateFileField(
+        upload_to="resumes",
         blank=True,
         help_text="PDFs only",
         validators=[validate_pdf],
