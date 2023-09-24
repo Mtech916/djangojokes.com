@@ -37,6 +37,7 @@ class JobApplicationForm(forms.ModelForm):
             "available_days",
             "desired_hourly_wage",
             "cover_letter",
+            "resume",
             "confirmation",
             "job",
         )
@@ -53,5 +54,6 @@ class JobApplicationForm(forms.ModelForm):
                 attrs={"min": "10.00", "max": "100.00", "step": ".25"}
             ),
             "cover_letter": forms.Textarea(attrs={"cols": "100", "rows": "5"}),
+            "resume": forms.FileInput(attrs={"accept": "application/pdf"}),
         }
         error_messages = {"start_date": {"past_date": "Please enter a future date."}}
