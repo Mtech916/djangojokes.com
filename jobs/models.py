@@ -4,10 +4,18 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.db import models
 
+import filetype
+
 
 def validate_future_date(value):
     if value < datetime.now().date():
         raise ValidationError(message=f"{value} is in the past.", code="past_date")
+
+
+def validate_pdf(value):
+    kind = filetype.guess(value)
+    if not kind or kind.mime != "application/pdf":
+        raise ValidationError("That's not a PDF file.")
 
 
 class Job(models.Model):
@@ -42,7 +50,10 @@ class Applicant(models.Model):
     desired_hourly_wage = models.DecimalField(max_digits=5, decimal_places=2)
     cover_letter = models.TextField()
     resume = models.FileField(
-        upload_to="private/resumes", blank=True, help_text="PDFs only"
+        upload_to="private/resumes",
+        blank=True,
+        help_text="PDFs only",
+        validators=[validate_pdf],
     )
     confirmation = models.BooleanField()
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
