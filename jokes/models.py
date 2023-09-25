@@ -42,6 +42,18 @@ class Joke(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def num_votes(self):
+        return self.jokevotes.count()
+
+    @property
+    def num_likes(self):
+        return self.jokevotes.filter(vote=1).count()
+
+    @property
+    def num_dislikes(self):
+        return self.jokevotes.filter(vote=-1).count()
+
     def get_absolute_url(self):
         return reverse("jokes:detail", args=[str(self.slug)])
 
