@@ -66,10 +66,13 @@
           <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
         </td>
         <td>
-          {{ joke.category.category }}<br>
+          <a href="{% url 'jokes:category' joke.category.slug %}?order={{ order }}&direction={{ direction }}">
+            {{ joke.category.category }}
+          </a>
           {% for tag in joke.tags.all %}
           <span class="badge rounded-pill bg-secondary">
-            {{ tag.tag }}
+            <a href="{% url 'jokes:tag' tag.slug %}?order={{ order }}&direction={{ direction }}"
+            class="badge rounded-pill bg-secondary">{{ tag.tag }}</a>
           </span>
           {% endfor %}
         </td>
@@ -83,7 +86,9 @@
           </a>
           {% else %}
           <small>
-            by {{ joke.user.username }}
+            <a href="{% url 'jokes:creator' joke.user.username %}?order={{ order }}&direction={{ direction }}">
+              by {{ joke.user.username }}
+            </a>
           </small>
           {% endif %}
         </td>
