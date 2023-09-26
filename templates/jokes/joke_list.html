@@ -8,6 +8,7 @@
   </div>
   <div class="col-12 col-md-8 col-lg-6">
     <form class="form-inline my-2 mx-auto" style="max-width: 30rem;">
+      <input type="hidden" name="q" value="{{ request.GET.q }}">
       <label class="my-1 me-2" for="order">Order By:</label>
       <select class="form-control me-sm-2" name="order" id="order">
         {% for field in order_fields %}
@@ -42,20 +43,21 @@
       {% with order=request.GET.order dir=request.GET.direction %}
       <tr>
         {% if order == 'joke' and dir == 'asc' %}
-        <th><a href="?order=joke&direction=desc">Joke</a></th>
+        <th><a href="?order=joke&direction=desc&q={{ request.GET.q }}">Joke</a></th>
         {% else %}
-        <th><a href="?order=joke&direction=asc">Joke</a></th>
+        <th><a href="?order=joke&direction=asc&q={{ request.GET.q }}">Joke</a></th>
         {% endif %}
         {% if order == 'category' and dir == 'asc' %}
-        <th><a href="?order=category&direction=desc">Category</a></th>
+        <th><a href="?order=category&direction=desc&q={{ request.GET.q }}">Category</a></th>
         {% else %}
-        <th><a href="?order=category&direction=asc">Category</a></th>
+        <th><a href="?order=category&direction=asc&q={{ request.GET.q }}">Category</a></th>
         {% endif %}
         {% if order == 'creator' and dir == 'asc' %}
-        <th><a href="?order=creator&direction=desc">Creator</a></th>
+        <th><a href="?order=creator&direction=desc&q={{ request.GET.q }}">Creator</a></th>
         {% else %}
-        <th><a href="?order=creator&direction=asc">Creator</a></th>
+        <th><a href="?order=creator&direction=asc&q={{ request.GET.q }}">Creator</a></th>
         {% endif %}
+        <th>Rating</th>
       </tr>
       {% endwith %}
     </thead>
@@ -68,12 +70,10 @@
         <td>
           <a href="{% url 'jokes:category' joke.category.slug %}?order={{ order }}&direction={{ direction }}">
             {{ joke.category.category }}
-          </a>
+          </a><br>
           {% for tag in joke.tags.all %}
-          <span class="badge rounded-pill bg-secondary">
-            <a href="{% url 'jokes:tag' tag.slug %}?order={{ order }}&direction={{ direction }}"
+          <a href="{% url 'jokes:tag' tag.slug %}?order={{ order }}&direction={{ direction }}"
             class="badge rounded-pill bg-secondary">{{ tag.tag }}</a>
-          </span>
           {% endfor %}
         </td>
         <td>
@@ -86,11 +86,20 @@
           </a>
           {% else %}
           <small>
+            by
             <a href="{% url 'jokes:creator' joke.user.username %}?order={{ order }}&direction={{ direction }}">
-              by {{ joke.user.username }}
+              {{ joke.user.username }}
             </a>
           </small>
           {% endif %}
+        </td>
+        <td>
+          <!-- {% with votes=joke.votes %} -->
+          <div id="rating-container" title="{{ joke.rating }}">
+            <div id="rating" style="width:{% widthratio joke.rating 10 100 %}%;"></div>
+          </div>
+          ({{ joke.num_votes }} vote{{ joke.num_votes|pluralize }})
+          <!-- {% endwith %} -->
         </td>
       </tr>
       {% endfor %}
